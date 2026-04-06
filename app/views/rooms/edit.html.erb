@@ -1,0 +1,46 @@
+<h2>施設の編集</h2>
+<% if @room.errors.any? %>
+  <div style="color: red;">
+    <h3><%= @room.errors.count %>件のエラーがあります</h3>
+    <ul>
+      <% @room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @room, local: true do |f| %>
+  <div>
+    <%= f.label :image, "施設画像（変更する場合のみ選択）" %><br>
+    <%= f.file_field :image %>
+  </div>
+
+  <div>
+    <%= f.label :name, "施設名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :introduction, "施設紹介" %><br>
+    <%= f.text_area :introduction %>
+  </div>
+
+  <div>
+    <%= f.label :price, "宿泊代金" %><br>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.label :address, "住所" %><br>
+    <%= f.text_field :address %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
+
+<hr>
+<%= link_to "詳細に戻る", room_path(@room) %> |
+<%= link_to "一覧に戻る", rooms_path %>

@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+  get "rooms/index"
+  get "rooms/new"
+  get "rooms/show"
+  get "rooms/edit"
+  get "welcome/index"
+  devise_for :users
+  resources :rooms do
+    collection do
+      get 'search'
+    end
+    resources :reservations, only: [:create]
+  end
+
+  resources :reservations, only: [:index]
+  resource :users, only: [:show]
+  
+  root "welcome#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

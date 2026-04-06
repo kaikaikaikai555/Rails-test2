@@ -1,0 +1,14 @@
+<h2>アカウント情報</h2>
+
+<div>
+  <p><strong>メールアドレス:</strong> <%= current_user.email %></p>
+  <p><strong>パスワード:</strong> *********</p>
+</div>
+
+<hr>
+
+<%# 以下のリンクは、アカウント情報の「編集」ページ（Devise標準）へ飛ばします %>
+<%= link_to "アカウント情報を編集する", edit_user_registration_path %>
+<br>
+<%= link_to "戻る", :back %>
+<%= link_to "トップページ（メインメニュー）に戻る", root_path %>

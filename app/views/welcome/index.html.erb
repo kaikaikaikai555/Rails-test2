@@ -1,0 +1,22 @@
+<h3>施設を探す</h3>
+<%= form_with url: search_rooms_path, method: :get, local: true do |f| %>
+  <div>
+    <%= f.label :area, "エリア" %>
+    <%= f.select :area, ["未選択", "北海道", "東京", "神奈川", "愛知", "京都", "大阪", "福岡"], { include_blank: false } %>
+  </div>
+
+  <div>
+    <%= f.label :keyword, "キーワード" %>
+    <%= f.text_field :keyword, placeholder: "施設名や詳細で検索" %>
+  </div>
+
+  <%= f.submit "検索" %>
+<% end %>
+<hr>
+<h3>メインメニュー</h3>
+<ul>
+  <li><%= link_to "施設を登録する", new_room_path %></li>
+  <li><%= link_to "登録済みの施設一覧を見る", rooms_path %></li>
+  <li><%= link_to "予約済み施設一覧を見る", reservations_path %></li>
+  <li><%= link_to "アカウント情報を見る", users_path %></li>
+</ul>
