@@ -1,31 +1,21 @@
 Rails.application.routes.draw do
-  get "rooms/index"
-  get "rooms/new"
-  get "rooms/show"
-  get "rooms/edit"
-  get "welcome/index"
+  # トップページの設定
+  root 'welcome#index'
+
+  # Deviseの設定（ログイン・ログアウトなど）
   devise_for :users
+
+  # プロフィール編集用のルーティング（今回追加するメイン部分）
+  # resource を単数形にすることで、/user/edit というURLで編集
+  resource :user, only: [:show, :edit, :update]
+
+  # 施設（ルーム）関連のルーティング
   resources :rooms do
     collection do
       get 'search'
     end
-    resources :reservations, only: [:create]
   end
 
-  resources :reservations, only: [:index]
-  resource :users, only: [:show]
-  
-  root "welcome#index"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
-
-  # Render dynamic PWA files from app/views/pwa/*
-  get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
-  get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # 予約関連のルーティング
+  resources :reservations, only: [:index, :create]
 end

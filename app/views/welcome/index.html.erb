@@ -18,5 +18,5 @@
   <li><%= link_to "施設を登録する", new_room_path %></li>
   <li><%= link_to "登録済みの施設一覧を見る", rooms_path %></li>
   <li><%= link_to "予約済み施設一覧を見る", reservations_path %></li>
-  <li><%= link_to "アカウント情報を見る", users_path %></li>
+  <li><%= link_to "アカウント情報を見る", user_path(current_user) %></li>
 </ul>
