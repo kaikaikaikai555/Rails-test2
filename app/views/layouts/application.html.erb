@@ -17,7 +17,6 @@
   </head>
 
   <body>
-    <body>
     <% if notice %>
       <p style="color: green;"><%= notice %></p>
     <% end %>
@@ -40,7 +39,7 @@
           <ul style="list-style: none; padding: 0; margin-top: 5px;">
             <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
             <li><%= link_to "プロフィール編集", edit_user_registration_path %></li>
-            <li><%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %></li>
+            <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, style: "background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; padding: 0;" %></li>
           </ul>
         </div>
       <% else %>

@@ -1,21 +1,20 @@
 Rails.application.routes.draw do
-  # トップページの設定
+  # トップページの設定（最優先）
   root 'welcome#index'
 
-  # Deviseの設定（ログイン・ログアウトなど）
+  # ログイン・会員登録機能
   devise_for :users
 
-  # プロフィール編集用のルーティング（今回追加するメイン部分）
-  # resource を単数形にすることで、/user/edit というURLで編集
-  resource :user, only: [:show, :edit, :update]
-
-  # 施設（ルーム）関連のルーティング
+  # 施設（ルーム）関連
   resources :rooms do
     collection do
       get 'search'
     end
   end
 
-  # 予約関連のルーティング
+  # 予約関連
   resources :reservations, only: [:index, :create]
+
+  # ユーザーマイページなどが必要な場合
+  resources :users, only: [:show]
 end
