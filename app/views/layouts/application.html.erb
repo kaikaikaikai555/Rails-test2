@@ -28,20 +28,34 @@
       <h1><%= link_to "宿泊予約アプリ", root_path %></h1>
 
       <% if user_signed_in? %>
-        <div style="border: 1px solid #ccc; padding: 10px; display: inline-block;">
-          <% if current_user.avatar.attached? %>
-            <%= image_tag current_user.avatar, size: "30x30", style: "border-radius: 50%;" %>
-          <% else %>
-            <%= image_tag "/default-avatar.png", size: "30x30", style: "border-radius: 50%;" %>
-          <% end %>
-          <strong><%= current_user.name %> さん</strong>
-        
-          <ul style="list-style: none; padding: 0; margin-top: 5px;">
-            <li><%= link_to "プロフィール詳細", user_path(current_user) %></li>
-            <li><%= link_to "プロフィール編集", edit_user_registration_path %></li>
-            <li><%= button_to "ログアウト", destroy_user_session_path, method: :delete, style: "background: none; border: none; color: blue; text-decoration: underline; cursor: pointer; padding: 0;" %></li>
-          </ul>
+        <div class="dropdown" style="position: relative; display: inline-block;">
+          <button onclick="toggleMenu()" style="background: white; border: 1px solid #ccc; padding: 8px 15px; cursor: pointer; border-radius: 4px;">
+            <% if current_user.avatar.attached? %>
+              <%= image_tag current_user.avatar, size: "25x25", style: "border-radius: 50%; vertical-align: middle;" %>
+            <% end %>
+            <strong><%= current_user.name %> さん</strong> ▼
+          </button>
+    
+          <div id="myDropdown" style="display: none; position: absolute; right: 0; background-color: white; min-width: 160px; border: 1px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 1000; border-radius: 4px;">
+            <%= link_to "プロフィール詳細", user_path(current_user), style: "display: block; padding: 10px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;" %>
+            <%= link_to "プロフィール編集", edit_user_registration_path, style: "display: block; padding: 10px; text-decoration: none; color: #333; border-bottom: 1px solid #eee;" %>
+            <%= button_to "ログアウト", destroy_user_session_path, method: :delete, style: "width: 100%; text-align: left; border: none; background: none; padding: 10px; cursor: pointer; color: #333;" %>
+          </div>
         </div>
+
+        <script>
+          function toggleMenu() {
+            const menu = document.getElementById("myDropdown");
+            menu.style.display = menu.style.display === "none" || menu.style.display === "" ? "block" : "none";
+          }
+          // メニューの外側をクリックしたら閉じる設定
+          window.onclick = function(event) {
+            if (!event.target.closest('.dropdown')) {
+              const menu = document.getElementById("myDropdown");
+              if (menu) menu.style.display = "none";
+            }
+          }
+        </script>
       <% else %>
         <%= link_to "新規登録", new_user_registration_path %>
         <%= link_to "ログイン", new_user_session_path %>
