@@ -1,4 +1,15 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :introduction, :avatar])
+  end
+
+  # Deviseの標準メソッドを完全に上書きしてパスワードチェックをスルー
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end
